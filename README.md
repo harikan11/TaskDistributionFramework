@@ -10,3 +10,19 @@ easily transport them over TCP to other machines.
 Future plans: To explore multiple strategies/algorithms to allocate tasks to
 multiple machines and provide APIs to implement message passing between
 processes.
+
+
+Master.py file refers to the master node which is the centre of the whole system. It receives jobs and then
+distributes them to slave nodes in the system. The master node also handles the
+dynamic registration of clients and slaves. After a slave executes a function, it
+sends back the result to the master, which in turn sends back the result to the
+library.
+
+Slave.py file refers to the slave node. The slaves are the actual workers of the system, which execute functions. They
+receive serialized functions and arguments from the master node and then
+deserialize and execute these functions. Then, it takes the result and passes it
+back to the master node. The slave node also maintains an internal queue of
+functions to execute. This means, if multiple jobs are assigned on the same
+slave, it will pop off each job from the queue and execute them in an
+asynchronous manner.
+
